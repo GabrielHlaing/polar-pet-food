@@ -38,7 +38,7 @@ function Navigation() {
         <div className="nav-top-toggle">
           <button
             className={`toggle-button ${!isSnacks ? "active" : ""}`}
-            onClick={() => navigate("/inventory", { replace: true })}
+            onClick={() => navigate("/", { replace: true })}
           >
             Pet Food
           </button>

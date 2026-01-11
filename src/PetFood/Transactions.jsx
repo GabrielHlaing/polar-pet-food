@@ -6,6 +6,7 @@ import { useItems } from "../context/ItemsContext";
 import Navigation from "../component/Navigation";
 import { toast } from "react-toastify";
 import "../App.css";
+import { useNavigate } from "react-router-dom";
 
 const Transactions = () => {
   const { selectedItems, clearSelection, removeItem } = useTransaction();
@@ -15,6 +16,7 @@ const Transactions = () => {
     setItemsFetched,
     setHistoryFetched,
   } = useItems();
+  const navigate = useNavigate();
 
   const [mode, setMode] = useState("purchase");
   const [invoice, setInvoice] = useState("");
@@ -146,6 +148,8 @@ const Transactions = () => {
     setSupplier("");
     setDate(new Date().toISOString().split("T")[0]);
     setSubmitting(false);
+
+    navigate("/history", { replace: true });
   };
 
   return (

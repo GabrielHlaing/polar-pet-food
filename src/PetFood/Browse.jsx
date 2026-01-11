@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import { useItems } from "../context/ItemsContext";
 import { useTransaction } from "../context/TransactionContext";
-import { useNavigate } from "react-router-dom";
+import { replace, useNavigate } from "react-router-dom";
 import Navigation from "../component/Navigation";
 import "../App.css";
 
@@ -91,7 +91,7 @@ const Browse = () => {
       {itemCount > 0 && (
         <div
           className="floating-pill"
-          onClick={() => navigate("/transactions")}
+          onClick={() => navigate("/transactions", { replace: true })}
         >
           🛒 {itemCount} {itemCount === 1 ? "item" : "items"}
         </div>
