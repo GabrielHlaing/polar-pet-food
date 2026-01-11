@@ -96,7 +96,7 @@ function Navigation() {
           <>
             <button
               className="nav-button"
-              onClick={() => navigate("/dashboard", { replace: true })}
+              onClick={() => navigate("/", { replace: true })}
             >
               <FaTachometerAlt /> Dashboard
             </button>
