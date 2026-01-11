@@ -4,6 +4,7 @@ import {
   getAuth,
   setPersistence,
   browserLocalPersistence,
+  onAuthStateChanged,
 } from "firebase/auth";
 
 const firebaseConfig = {
@@ -28,3 +29,7 @@ setPersistence(auth, browserLocalPersistence)
   .catch((error) => {
     console.error("Failed to set auth persistence:", error);
   });
+
+onAuthStateChanged(auth, (user) => {
+  console.log("Auth state:", user ? user.email : "null");
+});

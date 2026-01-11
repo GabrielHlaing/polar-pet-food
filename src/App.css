@@ -473,6 +473,12 @@ h2 {
   transform: translateY(-1px);
 }
 
+.demo-info {
+  font-size: small;
+  color: rgb(7, 88, 23);
+  margin-top: 0.5rem;
+}
+
 @keyframes fadeIn {
   from {
     opacity: 0;

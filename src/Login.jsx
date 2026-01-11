@@ -17,7 +17,7 @@ function Login() {
     try {
       await signInWithEmailAndPassword(auth, email, password);
       toast.success("Login successful!");
-      navigate("/dashboard", { replace: true });
+      navigate("/", { replace: true });
     } catch (error) {
       console.error(error);
       toast.error("Login failed: " + error.message);
@@ -59,13 +59,13 @@ function Login() {
         </form>
 
         {isDemo && (
-          <Alert variant="info">
+          <div className="demo-info">
             Demo account
             <br />
             Email: {import.meta.env.VITE_DEMO_EMAIL}
             <br />
             Password: {import.meta.env.VITE_DEMO_PASSWORD}
-          </Alert>
+          </div>
         )}
       </div>
     </div>
