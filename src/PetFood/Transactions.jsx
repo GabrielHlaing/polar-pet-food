@@ -18,7 +18,7 @@ const Transactions = () => {
   } = useItems();
   const navigate = useNavigate();
 
-  const [mode, setMode] = useState("purchase");
+  const [mode, setMode] = useState("sale");
   const [invoice, setInvoice] = useState("");
   const [date, setDate] = useState(new Date().toISOString().split("T")[0]);
   const [supplier, setSupplier] = useState("");
@@ -160,16 +160,16 @@ const Transactions = () => {
       {/* Mode toggle */}
       <div className="mode-toggle">
         <button
-          onClick={() => setMode("purchase")}
-          className={`purchase-sale-btn ${mode === "purchase" ? "active" : ""}`}
-        >
-          Purchase
-        </button>
-        <button
           onClick={() => setMode("sale")}
           className={`purchase-sale-btn ${mode === "sale" ? "active" : ""}`}
         >
           Sale
+        </button>
+        <button
+          onClick={() => setMode("purchase")}
+          className={`purchase-sale-btn ${mode === "purchase" ? "active" : ""}`}
+        >
+          Purchase
         </button>
       </div>
 
