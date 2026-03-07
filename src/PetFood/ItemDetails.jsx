@@ -99,7 +99,7 @@ export default function ItemDetails() {
   if (!item) return null;
 
   return (
-    <div style={{ paddingTop: "20px" }}>
+    <div>
       <h2 className="page-title">Item Details</h2>
 
       <div className="form-container">
