@@ -17,10 +17,6 @@ function InventoryContent() {
 
   const navigate = useNavigate();
 
-  // // Modal state
-  // const [modalOpen, setModalOpen] = useState(false);
-  // const [modalItem, setModalItem] = useState(null); // item being edited
-
   useEffect(() => {
     fetchItems();
   }, []);
@@ -42,45 +38,6 @@ function InventoryContent() {
 
   const formatNum = (num) =>
     num || num === 0 ? Number(num).toLocaleString("en-US") : 0;
-
-  // // Open edit modal for given item
-  // const openEditModal = (item) => {
-  //   setModalItem({ ...item }); // clone to edit locally
-  //   setModalOpen(true);
-  // };
-
-  // // Close modal
-  // const closeModal = () => {
-  //   setModalItem(null);
-  //   setModalOpen(false);
-  // };
-
-  // // Save changes from modal (updateDoc + update local state)
-  // const handleSaveItem = async (updated) => {
-  //   try {
-  //     const itemRef = doc(db, "items", updated.id);
-  //     // prepare object to update - only include fields you allow
-  //     const toUpdate = {
-  //       name: updated.name,
-  //       brand: updated.brand,
-  //       code: updated.code,
-  //       purchasePrice: Number(updated.purchasePrice) || 0,
-  //       unitPrice: Number(updated.unitPrice) || 0,
-  //       quantity: Number(updated.quantity) || 0,
-  //       inventoryDate: updated.inventoryDate || null,
-  //       expiryDate: updated.expiryDate || null,
-  //     };
-  //     await updateDoc(itemRef, toUpdate);
-  //     setItems((prev) =>
-  //       prev.map((i) => (i.id === updated.id ? { ...i, ...toUpdate } : i)),
-  //     );
-  //     toast.success(`"${updated.name}" updated`);
-  //     closeModal();
-  //   } catch (err) {
-  //     console.error("Failed to save item:", err);
-  //     toast.error("Failed to save item.");
-  //   }
-  // };
 
   // Delete item
   const handleDeleteItem = async (item) => {
