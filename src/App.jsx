@@ -17,6 +17,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { TransactionProvider } from "./context/TransactionContext";
 import Browse from "./PetFood/Browse";
+import ItemDetails from "./PetFood/ItemDetails";
 
 function App() {
   return (
@@ -48,6 +49,14 @@ function App() {
                 element={
                   <ProtectedRoute>
                     <Inventory />
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/item/:id"
+                element={
+                  <ProtectedRoute>
+                    <ItemDetails />
                   </ProtectedRoute>
                 }
               />
