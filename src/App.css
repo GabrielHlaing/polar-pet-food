@@ -1019,11 +1019,8 @@ h2 {
     min-width: 160px;
   }
 
-  /* Prevent overlap - truncate long names with ellipsis */
   .inventory-table td:nth-child(2) {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    white-space: wrap;
     max-width: 200px;
   }
 
