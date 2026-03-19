@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import { useItems } from "../context/ItemsContext";
 import { useTransaction } from "../context/TransactionContext";
-import { replace, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Navigation from "../component/Navigation";
 import "../App.css";
 

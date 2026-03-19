@@ -64,7 +64,7 @@ export const ItemsProvider = ({ children }) => {
         historyRef,
         where("date", ">=", start.toISOString()),
         where("date", "<", end.toISOString()),
-        orderBy("date", "desc")
+        orderBy("date", "desc"),
       );
 
       const snapshot = await getDocs(q);
@@ -97,9 +97,9 @@ export const ItemsProvider = ({ children }) => {
         new Set(
           dates.map(
             (d) =>
-              `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}`
-          )
-        )
+              `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}`,
+          ),
+        ),
       ).sort((a, b) => (a < b ? 1 : -1)); // newest first
 
       setAvailableMonths(months);
@@ -115,10 +115,11 @@ export const ItemsProvider = ({ children }) => {
     sortOrder = "asc",
   }) => {
     let data = [...items];
-    if (nameFilter) {
-      const filterLower = nameFilter.toLowerCase();
+    if (nameFilter && nameFilter.trim() !== "") {
+      const filterLower = nameFilter.trim().toLowerCase().normalize("NFC");
+
       data = data.filter((item) =>
-        item.name.toLowerCase().includes(filterLower)
+        item.name.toLowerCase().normalize("NFC").includes(filterLower),
       );
     }
 
