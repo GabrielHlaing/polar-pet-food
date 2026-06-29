@@ -8,7 +8,7 @@ import { toast } from "react-toastify";
 
 function SnackList() {
   const { snacks, fetchSnacks, loading } = useSnacks();
-  const [editIndex, setEditIndex] = useState(null);
+  const [editingId, setEditingId] = useState(null);
   const [editSnack, setEditSnack] = useState({
     name: "",
     quantity: "",
@@ -21,16 +21,16 @@ function SnackList() {
 
   // 🟢 New state for re-stock (additional quantity)
   const [addStock, setAddStock] = useState();
+  const [search, setSearch] = useState("");
 
-  const handleEdit = (index) => {
-    setEditIndex(index);
-    setEditSnack(snacks[index]);
-    setAddStock(); // reset add stock each time
+  const handleEdit = (snack) => {
+    setEditingId(snack.id);
+    setEditSnack(snack);
+    setAddStock("");
   };
 
-  const handleSave = async (index) => {
-    const snackToUpdate = snacks[index];
-    const snackRef = doc(db, "snacks", snackToUpdate.id);
+  const handleSave = async () => {
+    const snackRef = doc(db, "snacks", editingId);
 
     // If user entered addStock, add it to existing quantity
     const newQuantity = Number(editSnack.quantity) + Number(addStock || 0);
@@ -43,7 +43,7 @@ function SnackList() {
 
     toast.success(`${editSnack.name} updated!`);
     await fetchSnacks();
-    setEditIndex(null);
+    setEditingId(null);
     setAddStock(0);
   };
 
@@ -54,6 +54,14 @@ function SnackList() {
       await fetchSnacks();
     }
   };
+
+  const filteredSnacks = [...snacks]
+    .filter((snack) => snack.name?.toLowerCase().includes(search.toLowerCase()))
+    .sort((a, b) =>
+      a.name.localeCompare(b.name, undefined, {
+        sensitivity: "base",
+      }),
+    );
 
   return (
     <div>
@@ -67,6 +75,15 @@ function SnackList() {
       ) : (
         <div>
           <h2 className="page-title">Snack List</h2>
+          <div className="snack-search-wrapper">
+            <input
+              type="text"
+              className="snack-search"
+              placeholder="Search snacks..."
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+            />
+          </div>
           <div className="snack-table-container">
             <table className="snack-table">
               <thead>
@@ -79,9 +96,9 @@ function SnackList() {
                 </tr>
               </thead>
               <tbody>
-                {snacks.map((snack, index) => (
+                {filteredSnacks.map((snack) => (
                   <tr key={snack.id}>
-                    {editIndex === index ? (
+                    {editingId === snack.id ? (
                       <>
                         <td>
                           <input
@@ -128,10 +145,7 @@ function SnackList() {
                           />
                         </td>
                         <td>
-                          <button
-                            className="save-btn"
-                            onClick={() => handleSave(index)}
-                          >
+                          <button className="save-btn" onClick={handleSave}>
                             Save
                           </button>
                         </td>
@@ -145,7 +159,7 @@ function SnackList() {
                         <td>
                           <button
                             className="edit-snack"
-                            onClick={() => handleEdit(index)}
+                            onClick={() => handleEdit(snack)}
                           >
                             Edit
                           </button>

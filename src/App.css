@@ -511,6 +511,13 @@ h2 {
   color: #1f4f73;
   font-size: 1.5rem;
   font-weight: 600;
+  padding-top: 20px;
+}
+
+@media (max-width: 480px) {
+  .page-title {
+    padding-top: 100px;
+  }
 }
 
 /* Filter bar styling */
@@ -1780,26 +1787,37 @@ h2 {
 /*----------------------------------------*/
 /**** Snacks CSS ****/
 
-/* Snack List */
-/* 💡 Wrap the table in a responsive container */
+/* ================= Snack List ================= */
+
 .snack-table-container {
   width: 100%;
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch; /* smooth scroll on iOS */
   margin: 0 auto;
 }
 
-/* ===== Scrollbar Styling ===== */
-.snack-table-container::-webkit-scrollbar {
-  height: 8px;
+/* ===== Search ===== */
+
+.snack-search-wrapper {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
 }
 
+.snack-search {
+  width: min(90%, 420px);
+  padding: 10px 14px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 15px;
+}
+
+/* ===== Table ===== */
+
 .snack-table {
-  width: 90%;
-  max-width: 1000px;
-  margin: 0 auto 60px auto;
+  width: 100%;
+  max-width: 1100px;
+  margin: 0 auto 60px;
   border-collapse: collapse;
-  background: #ffffff;
+  background: #fff;
   box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
   border-radius: 10px;
   overflow: hidden;
@@ -1807,35 +1825,67 @@ h2 {
 }
 
 .snack-table thead {
-  background-color: #1565c0;
-  color: #fff;
+  background: #1565c0;
+  color: white;
   text-transform: uppercase;
   letter-spacing: 0.5px;
 }
 
 .snack-table th,
 .snack-table td {
-  padding: 14px 18px;
+  padding: 14px 16px;
   text-align: center;
   border-bottom: 1px solid #e0e0e0;
   font-size: 15px;
 }
 
 .snack-table tbody tr:hover {
-  background-color: #f9f9f9;
-  transition: 0.2s ease;
+  background: #f9f9f9;
 }
 
-/* ===== Table Inputs ===== */
+/* Column widths */
+
+/* .snack-table th:first-child,
+.snack-table td:first-child {
+  width: 300px;
+}
+
+.snack-table th:nth-child(2),
+.snack-table td:nth-child(2) {
+  width: 90px;
+}
+
+.snack-table th:nth-child(3),
+.snack-table td:nth-child(3) {
+  width: 120px;
+}
+
+.snack-table th:nth-child(4),
+.snack-table td:nth-child(4) {
+  width: 110px;
+}
+
+.snack-table th:nth-child(5),
+.snack-table td:nth-child(5) {
+  width: 170px;
+} */
+
+.snack-table th,
+td {
+  width: auto;
+}
+
+/* ===== Inputs ===== */
+
 .snack-table input {
+  width: 90%;
+  max-width: 110px;
   padding: 6px 8px;
-  width: 100px;
   border: 1px solid #90caf9;
   border-radius: 5px;
   font-size: 14px;
   text-align: center;
   outline: none;
-  transition: border-color 0.2s;
 }
 
 .snack-table input:focus {
@@ -1843,6 +1893,7 @@ h2 {
 }
 
 /* ===== Buttons ===== */
+
 .edit-snack,
 .delete-snack,
 .save-btn {
@@ -1854,39 +1905,102 @@ h2 {
   cursor: pointer;
   font-weight: 500;
   color: white;
-  transition: all 0.2s ease;
+  transition: 0.2s;
 }
 
 .edit-snack {
-  background-color: #1565c0;
+  background: #1565c0;
 }
 
 .edit-snack:hover {
-  background-color: #0d47a1;
+  background: #0d47a1;
 }
 
 .delete-snack {
-  background-color: #d32f2f;
+  background: #d32f2f;
 }
 
 .delete-snack:hover {
-  background-color: #b71c1c;
+  background: #b71c1c;
 }
 
 .save-btn {
-  background-color: #2e7d32;
+  background: #2e7d32;
 }
 
 .save-btn:hover {
-  background-color: #1b5e20;
+  background: #1b5e20;
 }
 
-/* ===== Mobile View ===== */
+/* ================= Mobile ================= */
+
 @media (max-width: 768px) {
-  .snack-table th,
+  .snack-table {
+    box-shadow: none;
+    background: transparent;
+  }
+
+  .snack-table thead {
+    display: none;
+  }
+
+  .snack-table,
+  .snack-table tbody,
+  .snack-table tr {
+    display: block;
+  }
+
+  .snack-table tr {
+    background: white;
+    border-radius: 10px;
+    margin-bottom: 16px;
+    padding: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  }
+
   .snack-table td {
-    font-size: 13px;
-    padding: 10px 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: none;
+    padding: 8px 0;
+    text-align: right;
+  }
+
+  .snack-table td::before {
+    font-weight: 600;
+    color: #444;
+    text-align: right;
+  }
+
+  .snack-table td:nth-child(1)::before {
+    content: "Name";
+  }
+
+  .snack-table td:nth-child(2)::before {
+    content: "Quantity";
+  }
+
+  .snack-table td:nth-child(3)::before {
+    content: "Add Stock";
+  }
+
+  .snack-table td:nth-child(4)::before {
+    content: "Price";
+  }
+
+  .snack-table td:nth-child(5)::before {
+    content: "Actions";
+  }
+
+  .snack-table td:last-child {
+    flex-wrap: wrap;
+    gap: 6px;
+    justify-content: flex-end;
+  }
+
+  .snack-table input {
+    width: 120px;
   }
 }
 
@@ -1980,22 +2094,20 @@ h2 {
 }
 
 /* ===== Total Sold Page ===== */
-/* --- Table Container (makes it scrollable on mobile) --- */
+
 .total-sold-container {
   width: 90%;
   margin: 0 auto 25px auto;
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
   border-radius: 10px;
   background: #ffffff;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
 }
 
-/* --- Table --- */
+/* ===== Desktop Table ===== */
 .total-sold-table {
   width: 100%;
   border-collapse: collapse;
-  min-width: 600px; /* allows horizontal scroll on small screens */
   font-family: "Poppins", sans-serif;
 }
 
@@ -2020,23 +2132,22 @@ h2 {
   font-size: 0.95rem;
 }
 
-/* --- Input Fields --- */
+/* ===== Input ===== */
 .leftover-input {
   width: 80px;
   padding: 6px;
   border: 1px solid #ccc;
   border-radius: 6px;
   outline: none;
-  font-family: "Poppins", sans-serif;
-  transition: border-color 0.3s ease;
   text-align: center;
+  transition: border-color 0.3s ease;
 }
 
 .leftover-input:focus {
   border-color: #1565c0;
 }
 
-/* --- Calculate Button --- */
+/* ===== Button ===== */
 .calculate-btn {
   display: block;
   margin: 20px auto;
@@ -2047,16 +2158,12 @@ h2 {
   border-radius: 8px;
   cursor: pointer;
   font-size: 1rem;
-  font-family: "Poppins", sans-serif;
   font-weight: 500;
-  transition:
-    background-color 0.3s ease,
-    transform 0.2s ease;
+  transition: background-color 0.3s ease;
 }
 
 .calculate-btn:hover {
   background-color: #0d47a1;
-  transform: scale(1.03);
 }
 
 .calculate-btn:disabled {
@@ -2064,50 +2171,64 @@ h2 {
   cursor: not-allowed;
 }
 
-/* --- Total Sold Text --- */
+/* ===== Result text ===== */
 .total-sold-text {
   text-align: center;
   font-size: 1.2rem;
   font-weight: 600;
   color: #1565c0;
   margin-top: 15px;
-  font-family: "Poppins", sans-serif;
 }
 
-/* --- Scrollbar Styling for Mobile --- */
-.total-sold-table-container::-webkit-scrollbar {
-  height: 8px;
-}
-
-.total-sold-table-container::-webkit-scrollbar-thumb {
-  background-color: #bbb;
-  border-radius: 10px;
-}
-
-.total-sold-table-container::-webkit-scrollbar-track {
-  background: #f1f1f1;
-}
-
-/* --- Responsive Adjustments --- */
+/* =========================================================
+   MOBILE FIX: convert table → stacked card layout
+   ========================================================= */
 @media (max-width: 768px) {
-  .page-title {
-    font-size: 1.6rem;
-    margin-top: 100px;
+  .total-sold-container {
+    width: 95%;
   }
 
-  .total-sold-table th,
+  /* hide table header only */
+  .total-sold-table thead {
+    display: none;
+  }
+
+  .total-sold-table,
+  .total-sold-table tbody,
+  .total-sold-table tr,
   .total-sold-table td {
-    padding: 8px 10px;
-    font-size: 0.9rem;
+    display: block;
+    width: 100%;
+  }
+
+  .total-sold-table tr {
+    background: #f9f9f9;
+    margin-bottom: 12px;
+    padding: 12px;
+    border-radius: 10px;
+    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.08);
+  }
+
+  .total-sold-table td {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: none;
+    padding: 6px 0;
+  }
+
+  .total-sold-table td::before {
+    content: attr(data-label);
+    font-weight: 600;
+    color: #555;
   }
 
   .leftover-input {
-    width: 60px;
+    width: 70px;
   }
 
   .calculate-btn {
-    width: 80%;
-    font-size: 0.95rem;
+    width: 90%;
   }
 }
 

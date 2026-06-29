@@ -13,20 +13,27 @@ export const SnacksProvider = ({ children }) => {
   const [snacks, setSnacks] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // Fetch snacks from Firestore
   const fetchSnacks = async () => {
     setLoading(true);
     try {
       const snackCollection = await getDocs(collection(db, "snacks"));
-      setSnacks(
-        snackCollection.docs.map((doc) => ({ id: doc.id, ...doc.data() }))
-      );
+      const data = snackCollection.docs.map((doc) => ({
+        id: doc.id,
+        ...doc.data(),
+      }));
+
+      setSnacks(data || []);
     } catch (err) {
       console.error("Error fetching snacks: ", err);
+      setSnacks([]);
     } finally {
       setLoading(false);
     }
   };
+
+  useEffect(() => {
+    fetchSnacks();
+  }, []);
 
   return (
     <SnacksContext.Provider value={{ snacks, setSnacks, fetchSnacks, loading }}>

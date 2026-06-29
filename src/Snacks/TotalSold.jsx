@@ -12,7 +12,14 @@ function TotalSold() {
   const [totalSold, setTotalSold] = useState(null);
   const [calculating, setCalculating] = useState(false);
 
-  if (!snacks.length) return <p>Loading snacks...</p>;
+  if (!Array.isArray(snacks) || snacks.length === 0) {
+    return (
+      <>
+        <Navigation />
+        <p>Loading snacks...</p>
+      </>
+    );
+  }
 
   const handleChange = (id, value) => {
     setLeftover({ ...leftover, [id]: Number(value) });
@@ -53,7 +60,7 @@ function TotalSold() {
     setTotalSold(total);
     setCalculating(false); // re-enable button
     toast.success(
-      `Snack quantities updated. Total sold amount: ${total.toFixed(2)} Ks`
+      `Snack quantities updated. Total sold amount: ${total.toFixed(2)} Ks`,
     );
   };
 
@@ -75,10 +82,10 @@ function TotalSold() {
             <tbody>
               {snacks.map((snack) => (
                 <tr key={snack.id}>
-                  <td>{snack.name}</td>
-                  <td>{snack.quantity}</td>
-                  <td>{snack.price}</td>
-                  <td>
+                  <td data-label="Name">{snack.name}</td>
+                  <td data-label="Original Quantity">{snack.quantity}</td>
+                  <td data-label="Price">{snack.price}</td>
+                  <td data-label="Leftover Quantity">
                     <input
                       type="number"
                       min="0"
